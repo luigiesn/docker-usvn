@@ -2,7 +2,7 @@
 
 cd /
 
-# usvnの設定ディレクトリがなければ作成する
+# If there is no setting directory for usvn, create it 
 if [ ! -e "/var/lib/svn/config" ]; then
 	mkdir /var/lib/svn/config
 	chown www-data:www-data /var/lib/svn/config
@@ -19,7 +19,6 @@ if [ "x${USVN_SUBDIR}" = "x" ]; then
 	rm -rf /var/www/html
 	ln -s /usr/local/src/usvn-1.0.7/public /var/www/html
 else
-	# 荒っぽいが、これでディレクトリが準備できる
 	mkdir -p /var/www/html${USVN_SUBDIR}
 	chown www-data:www-data /var/www/html${USVN_SUBDIR}
 	cd /var/www/html${USVN_SUBDIR}
@@ -30,7 +29,7 @@ fi
 
 cd /
 
-# apacheの設定を変更
+# Change apache settings 
 cat << EOF > /etc/apache2/sites-available/000-default.conf
 <VirtualHost *:80>
         ServerAdmin webmaster@localhost

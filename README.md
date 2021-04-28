@@ -1,98 +1,97 @@
 usvn
 ================
 
-# はじめに
-dockerにてsubversion、usvn(web管理)を提供するコンテナです。  
-コンテナ内のファイルはホスト側からは隔離されます。永続的なファイルの保存が必要な場合は-vオプションを使用してホスト側のディレクトリを以下へマウントしてください。
-+ /var/lib/svn
+#Introduction
+It is a container that provides subversion and usvn (web management) with docker.
+The files in the container are quarantined from the host side. If you need to save persistent files, use the -v option to mount the host-side directory to:
++ / var / lib / svn
 
-使い方
+How to use
 ------
-# Installation
-以下のようにdocker imageをpullします。
+#Installation
+Pull the docker image as follows.
 
-    docker pull sharaku/usvn
+    docker pull sharaku / usvn
 
 
-Docker imageを自分で構築することもできます。
+You can also build your own Docker image.
 
     git clone https://github.com/sharaku/docker-usvn.git
     cd docker-usvn
-    docker build --tag="$USER/usvn" .
+    docker build --tag = "$ USER / usvn".
 
 # Quick Start
-ldapのimageを実行します。
+Run the ldap image.
 
     docker run -d \
       --name usvn \
-      -v /path/to/svn/:/var/lib/svn:rw \
+      -v / path / to / svn /: / var / lib / svn: rw \
       -p 80:80 \
-      sharaku/usvn
+      sharaku / usvn
 
 # usvn install
-起動後、以下へアクセスし、インストールを行います。
-http://サーバIP/install.php
-設定は、以下の通り行ってください。これ以外では設定は失敗します。
+After starting, access the following and install.
+http: // server IP / install.php
+Make the settings as follows. Otherwise, the setting will fail.
 
-1. System Check  
-    次へ
+1. System Check
+    next
 
-2. Language Selection  
-    任意
-    次へ
+2. Language Selection
+    Any
+    next
 
-3. License Agreement  
-    ライセンスに同意して次へ
+3. License Agreement
+    Accept the license and go to the next
 
-4. USVN Configuration  
-    ※ 全てデフォルト値
-    次へ
+4. USVN Configuration
+    * All default values
+    next
 
-5. Database Installation  
-    データベースタイプ: PDO SqLite  
-    データベース: /usr/local/src/usvn-1.0.7/files/usvn.db  
-    次へ
+5. Database Installation
+    Database type: PDO SqLite
+    Database: /usr/local/src/usvn-1.0.7/files/usvn.db
+    next
 
-6. Administrator User Creation  
-    任意の設定  
-    次へ
+6. Administrator User Creation
+    Arbitrary setting
+    next
 
-7. Check for a Newer Version  
-    任意の設定  
-    次へ
+7. Check for a Newer Version
+    Arbitrary setting
+    next
 
-8. インストールが終了しました  
-    USVNに接続する
+8. Installation is complete
+    Connect to USVN
 
 ## Argument
 
-+   `USVN_SUBDIR` :  
-    URLのサブディレクトリを指定します。デフォルトではサブディレクトリはありません。  
-    指定は、`USVN_SUBDIR=/usvn`のように/で始まり、終わりには/をつけないようにしてください。  
-    `USVN_SUBDIR=/usvn`とした場合は、`http://サーバIP/usvn/`がカレントディレクトリになります。  
-    リバースプロキシを使用してサブディレクトリとして運用する場合にご利用ください。
++ `USVN_SUBDIR`:
+    Specify a subdirectory of the URL. By default there are no subdirectories.
+    The specification should start with / and not end with /, such as `USVN_SUBDIR = / usvn`.
+    If you set `USVN_SUBDIR = / usvn`,` http: // server IP / usvn / `will be the current directory.
+    Please use it when operating as a subdirectory using a reverse proxy.
 
-## サブディレクトリとして運用する場合
+## When operating as a subdirectory
 
-以下の条件で動作させる場合の例です。
+This is an example of operating under the following conditions.
 
-+ サーバIP 192.168.1.100
-+ 運用ディレクトリ http://192.168.1.100/usvn
-+ 永続化するディレクトリ /var/lib/usvn
++ Server IP 192.168.1.100
++ Operation directory http://192.168.1.100/usvn
++ Persistent directory / var / lib / usvn
 
     docker run -d \
       --name usvn \
-      -v /var/lib/usvn:/var/lib/svn:rw \
-      -e USVN_SUBDIR=/usvn \
+      -v / var / lib / usvn: / var / lib / svn: rw \
+      -e USVN_SUBDIR = / usvn \
       -p 80:80 \
-      sharaku/usvn
+      sharaku / usvn
 
-# 制限事項
-+ 一度実行した際に使用していた永続データは別サブディレクトリへ移行できない
-永続化するディレクトリの中には、どのサブディレクトリで運用するかの設定が記載されています。  
-現状、コンバート機能を持たないため、そのままでは別サブディレクトリで運用できません。  
-別サブディレクトリにするには永続化するディレクトリ中のconfigディレクトリ内の設定情報の変更をする必要があります。
+# Limitations
++ Persistent data used once executed cannot be moved to another subdirectory
+In the directory to be made persistent, the setting of which subdirectory to operate is described.
+Currently, it does not have a conversion function, so it cannot be operated in another subdirectory as it is.
+To make it a different subdirectory, you need to change the setting information in the config directory in the persistent directory.
 
 # TODO
-+ LDAP接続が成功しないので要調査
-
++ LDAP connection is not successful, so investigation is required
