@@ -7,24 +7,24 @@ if [ ! -e "/var/lib/svn/config" ]; then
 	mkdir /var/lib/svn/config
 	chown www-data:www-data /var/lib/svn/config
 fi
-rm -rf /usr/local/src/usvn-1.0.7/config
-ln -s /var/lib/svn/config /usr/local/src/usvn-1.0.7/config
+rm -rf /usr/local/src/usvn-1.0.10/config
+ln -s /var/lib/svn/config /usr/local/src/usvn-1.0.10/config
 if [ ! -e "/var/lib/svn/files" ]; then
 	mkdir /var/lib/svn/files
 	chown www-data:www-data /var/lib/svn/files
 fi
-ln -s /var/lib/svn/files /usr/local/src/usvn-1.0.7/files
+ln -s /var/lib/svn/files /usr/local/src/usvn-1.0.10/files
 
 if [ "x${USVN_SUBDIR}" = "x" ]; then
 	rm -rf /var/www/html
-	ln -s /usr/local/src/usvn-1.0.7/public /var/www/html
+	ln -s /usr/local/src/usvn-1.0.10/public /var/www/html
 else
 	mkdir -p /var/www/html${USVN_SUBDIR}
 	chown www-data:www-data /var/www/html${USVN_SUBDIR}
 	cd /var/www/html${USVN_SUBDIR}
 	cd ../
 	rmdir ./*
-	ln -s /usr/local/src/usvn-1.0.7/public /var/www/html${USVN_SUBDIR}
+	ln -s /usr/local/src/usvn-1.0.10/public /var/www/html${USVN_SUBDIR}
 fi
 
 cd /
@@ -51,16 +51,16 @@ cat << EOF > /etc/apache2/mods-enabled/dav_svn.conf
 	ErrorDocument 404 default
 	DAV svn
 	Require valid-user
-	SVNParentPath /usr/local/src/usvn-1.0.7/files/svn
+	SVNParentPath /usr/local/src/usvn-1.0.10/files/svn
 	SVNListParentPath off
 	AuthType Basic
 	AuthName "USVN"
-	AuthUserFile /usr/local/src/usvn-1.0.7/files/htpasswd
-	AuthzSVNAccessFile /usr/local/src/usvn-1.0.7/files/authz
+	AuthUserFile /usr/local/src/usvn-1.0.10/files/htpasswd
+	AuthzSVNAccessFile /usr/local/src/usvn-1.0.10/files/authz
 </Location>
 EOF
 
-cat << EOF > /usr/local/src/usvn-1.0.7/public/.htaccess
+cat << EOF > /usr/local/src/usvn-1.0.10/public/.htaccess
 <Files *.ini>
 Order Allow,Deny
 Deny from all
@@ -79,7 +79,7 @@ RewriteRule ^.*$ - [NC,L]
 RewriteRule ^.*$ index.php [NC,L]
 EOF
 
-chown www-data:www-data /usr/local/src/usvn-1.0.7/public/.htaccess
+chown www-data:www-data /usr/local/src/usvn-1.0.10/public/.htaccess
 
 a2enmod rewrite
 /etc/init.d/apache2 restart

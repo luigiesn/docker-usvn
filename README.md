@@ -50,7 +50,7 @@ Make the settings as follows. Otherwise, the setting will fail.
 
 5. Database Installation
     Database type: PDO SqLite
-    Database: /usr/local/src/usvn-1.0.7/files/usvn.db
+    Database: /usr/local/src/usvn-1.0.10/files/usvn.db
     next
 
 6. Administrator User Creation
