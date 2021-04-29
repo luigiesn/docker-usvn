@@ -7,7 +7,7 @@ MAINTAINER holao09
 RUN apt-get -y update
 
 # Install svn
-RUN apt-get install -y wget subversion libapache2-svn libapache2-mod-encoding sqlite3
+RUN apt-get install -y wget subversion libapache2-mod-svn libapache2-mod-encoding sqlite3
 
 RUN \
         cd /usr/local/src && \
