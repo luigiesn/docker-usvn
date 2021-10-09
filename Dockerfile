@@ -9,6 +9,8 @@ RUN apt-get -y update
 # Install svn
 RUN apt-get install -y wget subversion libapache2-mod-svn libapache2-mod-encoding sqlite3
 
+RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+
 RUN \
         cd /usr/local/src && \
         wget "https://github.com/usvn/usvn/archive/1.0.10.tar.gz" -O usvn-1.0.10.tar.gz && \
