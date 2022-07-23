@@ -1,5 +1,5 @@
 FROM php:7.4.16-apache
-MAINTAINER holao09
+MAINTAINER luigiesn
 
 # ######################################################################
 
@@ -50,6 +50,6 @@ VOLUME /var/lib/svn
 # start
 CMD ["/opt/start.sh"]
 
-#docker build -t sharaku/svn .
+#docker build -t luigiesn/usvn .
 # ----------------
-#docker run -d -v path/to/svn:/var/lib/svn --name usvn -p 80:80 sharaku/usvn
+#docker run -d -v path/to/svn:/var/lib/svn --name usvn -p 80:80 luigiesn/usvn
