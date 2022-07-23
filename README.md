@@ -12,7 +12,11 @@ How to use
 Clone this repo and build docker image
 ```
 git clone https://github.com/luigiesn/docker-usvn.git
+```
+```
 cd docker-usvn
+```
+```
 docker build --tag="$USER/usvn" .
 ```
 ### Quick Start
@@ -20,7 +24,7 @@ Run the ldap image.
 ```
 docker run -d \
 --name usvn \
--v / path /to/svn/:/var/lib/svn:rw \
+-v /path/to/svn/:/var/lib/svn:rw \
 -p 80:80 \
 $USER/usvn
 ```
