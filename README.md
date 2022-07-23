@@ -1,37 +1,32 @@
-usvn
+USVN
 ================
 
-#Introduction
-It is a container that provides subversion and usvn (web management) with docker.
+## Introduction
+It is a container that provides subversion and USVN with docker.
 The files in the container are quarantined from the host side. If you need to save persistent files, use the -v option to mount the host-side directory to:
-+ / var / lib / svn
+*/var/lib/svn*
 
 How to use
 ------
-#Installation
-Pull the docker image as follows.
-
-    docker pull sharaku / usvn
-
-
-You can also build your own Docker image.
-
-    git clone https://github.com/sharaku/docker-usvn.git
+### Installation
+Clone this repo and build docker image
+```
+    git clone https://github.com/luigiesn/docker-usvn.git
     cd docker-usvn
-    docker build --tag = "$ USER / usvn".
-
-# Quick Start
+    docker build --tag="$USER/usvn" .
+```
+### Quick Start
 Run the ldap image.
-
+```
     docker run -d \
       --name usvn \
-      -v / path / to / svn /: / var / lib / svn: rw \
+      -v / path /to/svn/:/var/lib/svn:rw \
       -p 80:80 \
-      sharaku / usvn
-
-# usvn install
+      $USER/usvn
+```
+### USVN install
 After starting, access the following and install.
-http: // server IP / install.php
+http://server IP/install.php
 Make the settings as follows. Otherwise, the setting will fail.
 
 1. System Check
@@ -68,30 +63,30 @@ Make the settings as follows. Otherwise, the setting will fail.
 
 + `USVN_SUBDIR`:
     Specify a subdirectory of the URL. By default there are no subdirectories.
-    The specification should start with / and not end with /, such as `USVN_SUBDIR = / usvn`.
-    If you set `USVN_SUBDIR = / usvn`,` http: // server IP / usvn / `will be the current directory.
+    The specification should start with / and not end with /, such as `USVN_SUBDIR=/usvn`.
+    If you set `USVN_SUBDIR=/usvn`,` http://server IP/usvn/ `will be the current directory.
     Please use it when operating as a subdirectory using a reverse proxy.
 
-## When operating as a subdirectory
+### When operating as a subdirectory
 
 This is an example of operating under the following conditions.
 
 + Server IP 192.168.1.100
 + Operation directory http://192.168.1.100/usvn
-+ Persistent directory / var / lib / usvn
-
++ Persistent directory /var/lib/usvn
+```
     docker run -d \
       --name usvn \
-      -v / var / lib / usvn: / var / lib / svn: rw \
-      -e USVN_SUBDIR = / usvn \
+      -v /var /lib/usvn:/var/lib/svn:rw \
+      -e USVN_SUBDIR=/usvn \
       -p 80:80 \
-      sharaku / usvn
-
-# Limitations
+      $USER/usvn
+```
+## Limitations
 + Persistent data used once executed cannot be moved to another subdirectory
 In the directory to be made persistent, the setting of which subdirectory to operate is described.
 Currently, it does not have a conversion function, so it cannot be operated in another subdirectory as it is.
 To make it a different subdirectory, you need to change the setting information in the config directory in the persistent directory.
 
-# TODO
+## TODO
 + LDAP connection is not successful, so investigation is required
