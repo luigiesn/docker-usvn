@@ -11,18 +11,18 @@ How to use
 ### Installation
 Clone this repo and build docker image
 ```
-    git clone https://github.com/luigiesn/docker-usvn.git
-    cd docker-usvn
-    docker build --tag="$USER/usvn" .
+git clone https://github.com/luigiesn/docker-usvn.git
+cd docker-usvn
+docker build --tag="$USER/usvn" .
 ```
 ### Quick Start
 Run the ldap image.
 ```
-    docker run -d \
-      --name usvn \
-      -v / path /to/svn/:/var/lib/svn:rw \
-      -p 80:80 \
-      $USER/usvn
+docker run -d \
+--name usvn \
+-v / path /to/svn/:/var/lib/svn:rw \
+-p 80:80 \
+$USER/usvn
 ```
 ### USVN install
 After starting, access the following and install.
@@ -75,12 +75,12 @@ This is an example of operating under the following conditions.
 + Operation directory http://192.168.1.100/usvn
 + Persistent directory /var/lib/usvn
 ```
-    docker run -d \
-      --name usvn \
-      -v /var /lib/usvn:/var/lib/svn:rw \
-      -e USVN_SUBDIR=/usvn \
-      -p 80:80 \
-      $USER/usvn
+docker run -d \
+--name usvn \
+-v /var /lib/usvn:/var/lib/svn:rw \
+-e USVN_SUBDIR=/usvn \
+-p 80:80 \
+$USER/usvn
 ```
 ## Limitations
 + Persistent data used once executed cannot be moved to another subdirectory
