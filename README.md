@@ -30,7 +30,7 @@ $USER/usvn
 ```
 ### USVN install
 After starting, access the following and install.
-http://server IP/install.php
+http://serverIP/install.php
 Make the settings as follows. Otherwise, the setting will fail.
 
 1. System Check
@@ -68,7 +68,7 @@ Make the settings as follows. Otherwise, the setting will fail.
 + `USVN_SUBDIR`:
     Specify a subdirectory of the URL. By default there are no subdirectories.
     The specification should start with / and not end with /, such as `USVN_SUBDIR=/usvn`.
-    If you set `USVN_SUBDIR=/usvn`,` http://server IP/usvn/ `will be the current directory.
+    If you set `USVN_SUBDIR=/usvn`,` http://serverIP/usvn/ `will be the current directory.
     Please use it when operating as a subdirectory using a reverse proxy.
 
 ### When operating as a subdirectory
@@ -91,6 +91,3 @@ $USER/usvn
 In the directory to be made persistent, the setting of which subdirectory to operate is described.
 Currently, it does not have a conversion function, so it cannot be operated in another subdirectory as it is.
 To make it a different subdirectory, you need to change the setting information in the config directory in the persistent directory.
-
-## TODO
-+ LDAP connection is not successful, so investigation is required
