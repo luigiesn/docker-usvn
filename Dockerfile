@@ -49,7 +49,3 @@ VOLUME /var/lib/svn
 
 # start
 CMD ["/opt/start.sh"]
-
-#docker build -t luigiesn/usvn .
-# ----------------
-#docker run -d -v path/to/svn:/var/lib/svn --name usvn -p 80:80 luigiesn/usvn
