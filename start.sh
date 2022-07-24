@@ -2,19 +2,28 @@
 
 cd /
 
-# If there is no setting directory for usvn, create it 
+# if there is no CONFIG directory for usvn, create it 
 if [ ! -e "/var/lib/svn/config" ]; then
 	mkdir /var/lib/svn/config
 	chown www-data:www-data /var/lib/svn/config
 fi
+# remove config folder and link it to a persistent CONFIG directory
 rm -rf /usr/local/src/usvn-1.0.10/src/config
 ln -s /var/lib/svn/config /usr/local/src/usvn-1.0.10/src/config
+
+# if there is no FILES directory for usvn, create it 
 if [ ! -e "/var/lib/svn/files" ]; then
 	mkdir /var/lib/svn/files
+	mkdir /var/lib/svn/files/svn
+
 	chown www-data:www-data /var/lib/svn/files
+	chown www-data:www-data /var/lib/svn/files/svn
 fi
+# remove config folder and link it to a persistent FILES directory
+rm -rf /usr/local/src/usvn-1.0.10/src/files
 ln -s /var/lib/svn/files /usr/local/src/usvn-1.0.10/src/files
 
+# create a softlink to the USVN public folder  
 if [ "x${USVN_SUBDIR}" = "x" ]; then
 	rm -rf /var/www/html
 	ln -s /usr/local/src/usvn-1.0.10/src/public /var/www/html
@@ -36,7 +45,7 @@ cat << EOF > /etc/apache2/sites-available/000-default.conf
         DocumentRoot /var/www/html
         <Directory /var/www/html>
                 AllowOverride all
-                Options -MultiViews
+                Options -MultiViews 
                 Order Deny,Allow
                 Allow from all
                 Require all granted
